@@ -1,0 +1,58 @@
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:18.7.1-ce.0
+    container_name: gitlab
+    restart: always
+    hostname: 'git.ebbez.dev'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['gitlab_shell_ssh_port'] = 2424
+        puma['worker_processes'] = 0
+        sidekiq['concurrency'] = 5
+
+        external_url 'https://git.ebbez.dev'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+
+        pages_external_url 'https://gitpages.ebbez.dev'
+        pages_nginx['listen_port'] = 52453
+        pages_nginx['listen_https'] = false
+
+        gitaly['env'] = {
+          'GITALY_COMMAND_SPAWN_MAX_PARALLEL' => '2',
+          'MALLOC_CONF' => 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+
+        prometheus_monitoring['enable'] = false
+
+        gitlab_rails['env'] = {
+          'MALLOC_CONF' => 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+    networks:
+      - reverse_proxy
+      - default
+    ports:
+      # - '8929:8929'
+      # - '443:443'
+      - '2424:22'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
+
+  runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    restart: always
+    depends_on:
+      - gitlab
+    volumes:
+      - 'runner:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+volumes:
+  runner:
+
+networks:
+  reverse_proxy:
+    external: true
