@@ -49,6 +49,7 @@ services:
   #pages:
   #  image: 'codeberg.org/codeberg/pages-server:latest'
   #  container_name: 'forgejo_pages'
+  #  working_dir: /data
   #  environment:
   #    ACME_ACCEPT_TERMS: true
   #    GITEA_ROOT: 'https://git.ebbez.dev'
@@ -63,7 +64,7 @@ services:
   #    - "OTHER_IPv4:443:443"
   #    - "OTHER_IPv6:443:443"
   #  volumes:
-  #    - './data:/'
+  #    - './data:/data'
 
 
 networks:
