@@ -1,7 +1,7 @@
 services:
   server:
-    container_name: forgejo_server
     image: codeberg.org/forgejo/forgejo:11
+    container_name: 'forgejo_server'
     environment:
       - USER_UID=1000
       - USER_GID=1000
@@ -23,8 +23,9 @@ services:
     command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false']
     restart: 'unless-stopped'
 
-  forgejo-runner:
-    image: 'data.forgejo.org/forgejo/runner:4.0.0'
+  runner:
+    image: 'data.forgejo.org/forgejo/runner:11'
+    container_name: 'forgejo_runner'
     links:
       - docker-in-docker
       - server
@@ -33,7 +34,6 @@ services:
         condition: service_started
       server:
         condition: service_started
-    container_name: 'runner'
     environment:
       DOCKER_HOST: tcp://docker-in-docker:2375
     # User without root privileges, but with access to `./data`.
@@ -41,9 +41,31 @@ services:
     volumes:
       - ./runnerdata:/data
     restart: 'unless-stopped'
+    # to register start container with (and see REGISTER.md after):
+    # command: '/bin/sh -c "while : ; do sleep 1 ; done ;"'
+    # to run (when registered):
     command: '/bin/sh -c "sleep 5; forgejo-runner daemon"'
+  
+  #pages:
+  #  image: 'codeberg.org/codeberg/pages-server:latest'
+  #  container_name: 'forgejo_pages'
+  #  environment:
+  #    ACME_ACCEPT_TERMS: true
+  #    GITEA_ROOT: 'https://git.ebbez.dev'
+  #    GITEA_API_TOKEN: ''
+  #    PAGES_DOMAIN: 'pages.ebbez.dev'
+  #    RAW_DOMAIN: 'raw.pages.ebbez.dev'
+  #    # TEMPORARILY UNTIL DNS API GETS FIXED:
+  #    #DNS_PROVIDER: 'hetzner'
+  #    #HETZNER_API_TOKEN: ''
+  #    NO_DNS_01: true
+  #  ports:
+  #    - "OTHER_IPv4:443:443"
+  #    - "OTHER_IPv6:443:443"
+  #  volumes:
+  #    - './data:/'
+
 
 networks:
   reverse_proxy:
     external: true
-  default:
