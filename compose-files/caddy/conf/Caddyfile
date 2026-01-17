@@ -1,0 +1,7 @@
+git.ebbez.dev {
+  reverse_proxy http://forgejo_server:3000
+}
+
+git.cequent.eu, cequent.eu {
+  reverse_proxy http://gitlab
+}
