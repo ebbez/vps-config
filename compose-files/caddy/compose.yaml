@@ -2,6 +2,7 @@ services:
   webserver:
     container_name: caddy
     image: caddy:2-alpine
+    build: . 
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
