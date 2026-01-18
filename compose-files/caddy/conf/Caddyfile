@@ -1,19 +1,18 @@
 {
   layer4 {
     :443 {
-       @q1 tls sni *.pages.ebbez.dev pages.ebbez.dev raw.pages.ebbez.dev
-       route @q1 {
-         proxy forgejo_pages:443
-       }
+      @q1 tls sni *.pages.ebbez.dev pages.ebbez.dev raw.pages.ebbez.dev
+      route @q1 {
+        proxy forgejo_pages:443
+      }
  
-       # Unsure if needed, could not test
-       #@q2 tls {
-       #  alpn acme-tls/1
-       #  sni *.pages.ebbez.dev pages.ebbez.dev raw.pages.ebbez.dev
-       #}
-       #route @q2 {
-       #  proxy forgejo_pages:443
-       #}
+      @q2 tls {
+        alpn acme-tls/1
+        sni *.pages.ebbez.dev pages.ebbez.dev raw.pages.ebbez.dev
+      }
+      route @q2 {
+        proxy forgejo_pages:443
+      }
     }
   }
 }
