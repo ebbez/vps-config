@@ -47,24 +47,12 @@ services:
     command: '/bin/sh -c "sleep 5; forgejo-runner daemon"'
   
   pages:
-    image: 'codeberg.org/codeberg/pages-server:latest'
+    image: 'codeberg.org/git-pages/git-pages:latest'
     container_name: 'forgejo_pages'
     restart: unless-stopped
-    depends_on:
-      - server
-    working_dir: /data
-    environment:
-      ACME_ACCEPT_TERMS: true
-      GITEA_ROOT: 'http://forgejo_server:3000'
-      PAGES_DOMAIN: 'pages.ebbez.dev'
-      RAW_DOMAIN: 'raw.pages.ebbez.dev'
-      GITEA_API_TOKEN: 'a2c9e142537076987a30bd9031a4331380c56bc3'
-  #    # TEMPORARILY UNTIL DNS API GETS FIXED:
-  #    #DNS_PROVIDER: 'hetzner'
-  #    #HETZNER_API_TOKEN: ''
-      NO_DNS_01: true
+    user: 1002:1002
     volumes:
-      - './pagesdata:/data'
+      - './pages:/app'
     networks:
       - reverse_proxy
       - default
