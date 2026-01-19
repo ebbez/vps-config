@@ -24,6 +24,7 @@ https://, http:// {
     dns hetzner {$HETZNER_DNS_API_TOKEN}
     propagation_delay 30s
   }
+  reverse_proxy http://forgejo_pages:3000
 }
 
 git.ebbez.dev {
