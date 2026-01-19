@@ -1,11 +1,29 @@
-git.ebbez.dev {
-  reverse_proxy http://forgejo_server:3000
+{
+  admin off
+
+  persist_config off
+
+  auto_https disable_redirects
+
+  on_demand_tls {
+    permission http http://forgejo_pages:3001
+  }
 }
 
-*.pages.ebbez.dev, pages.ebbez.dev, ebbez.dev {
-  reverse_proxy http://forgejo_pages:3000
+# on_demand_tls doesn't seem to work yet. Caddy endpoint seems to respond with 404s
+https://, http:// {
   tls {
-    dns hetzner <>
-    propagation_delay 30s
+    on_demand
   }
+
+  reverse_proxy http://forgejo_pages:3000
+}
+
+# Temporary fix
+ebbez.dev, ebbez.ebbez.dev {
+  reverse_proxy http://forgejo_pages:3000  
+}
+
+git.ebbez.dev {
+  reverse_proxy http://forgejo_server:3000
 }
