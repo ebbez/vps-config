@@ -14,7 +14,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - '222:22'
+      - '22:22'
 
   docker-in-docker:
     image: docker:dind
