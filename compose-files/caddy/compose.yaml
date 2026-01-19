@@ -1,8 +1,9 @@
 services:
   webserver:
     container_name: caddy
-    image: caddy:2-alpine
-    #build: .
+    #image: caddy:2-alpine
+    build: .
+    env_file: '.env'
     restart: unless-stopped
     cap_add:
       - NET_ADMIN

@@ -19,9 +19,11 @@ https://, http:// {
   reverse_proxy http://forgejo_pages:3000
 }
 
-# Temporary fix
-ebbez.dev, ebbez.ebbez.dev {
-  reverse_proxy http://forgejo_pages:3000  
+*.ebbez.dev {
+  tls {
+    dns hetzner {$HETZNER_DNS_API_TOKEN}
+    propagation_delay 30s
+  }
 }
 
 git.ebbez.dev {
