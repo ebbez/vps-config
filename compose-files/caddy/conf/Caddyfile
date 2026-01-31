@@ -1,10 +1,4 @@
 {
-  admin off
-
-  persist_config off
-
-  auto_https disable_redirects
-
   on_demand_tls {
     permission http http://forgejo_pages:3001
   }
