@@ -24,3 +24,7 @@ https://, http:// {
 git.ebbez.dev {
   reverse_proxy http://forgejo_server:3000
 }
+
+rdcl.ebbez.dev {
+  reverse_proxy radicale:5232
+}

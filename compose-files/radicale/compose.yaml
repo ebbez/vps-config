@@ -1,0 +1,14 @@
+services:
+  radicale:
+    image: ghcr.io/kozea/radicale:stable
+    expose:
+      - 5232
+    volumes:
+      - ./config:/etc/radicale
+      - ./data:/var/lib/radicale
+    networks:
+      - reverse_proxy
+
+networks:
+  reverse_proxy:
+    external: true
