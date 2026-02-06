@@ -3,20 +3,21 @@ services:
     image: gitlab/gitlab-ce:18.7.1-ce.0
     container_name: gitlab
     restart: always
-    hostname: 'git.ebbez.dev'
+    hostname: 'gitlab.cequent.nl'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        gitlab_rails['gitlab_shell_ssh_port'] = 2424
-        puma['worker_processes'] = 0
-        sidekiq['concurrency'] = 5
-
-        external_url 'https://git.ebbez.dev'
+        external_url 'https://gitlab.cequent.nl'
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
 
-        pages_external_url 'https://gitpages.ebbez.dev'
-        pages_nginx['listen_port'] = 52453
+        pages_external_url 'https://pages.cequent.nl'
+        pages_nginx['enable'] = true
+        pages_nginx['listen_port'] = 80
         pages_nginx['listen_https'] = false
+        gitlab_pages['namespace_in_path'] = true
+
+        puma['worker_processes'] = 0
+        sidekiq['concurrency'] = 5
 
         gitaly['env'] = {
           'GITALY_COMMAND_SPAWN_MAX_PARALLEL' => '2',
@@ -34,7 +35,7 @@ services:
     ports:
       # - '8929:8929'
       # - '443:443'
-      - '2424:22'
+      - '22:22'
     volumes:
       - './config:/etc/gitlab'
       - './logs:/var/log/gitlab'
