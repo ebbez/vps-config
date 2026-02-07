@@ -3,6 +3,7 @@ services:
     image: ghcr.io/kozea/radicale:stable
     expose:
       - 5232
+    restart: unless-stopped
     volumes:
       - ./config:/etc/radicale
       - ./data:/var/lib/radicale
