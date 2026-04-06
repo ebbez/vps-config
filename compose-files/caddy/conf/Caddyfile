@@ -28,3 +28,12 @@ git.ebbez.dev {
 rdcl.ebbez.dev {
   reverse_proxy radicale:5232
 }
+
+cequent.net {
+  reverse_proxy /_matrix/* continuwuity_server:8008
+  reverse_proxy /_conduwuit/* continuwuity_server:8008
+}
+
+cequent.net:8448 {
+  reverse_proxy continuwuity_server:8008
+}
