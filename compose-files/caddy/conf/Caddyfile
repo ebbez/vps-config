@@ -13,7 +13,7 @@ https://, http:// {
   reverse_proxy http://forgejo_pages:3000
 }
 
-*.ebbez.dev {
+{$FORGEJO_PAGES:*.example.com} {
   tls {
     dns hetzner {$HETZNER_DNS_API_TOKEN}
     propagation_delay 30s
@@ -21,19 +21,19 @@ https://, http:// {
   reverse_proxy http://forgejo_pages:3000
 }
 
-git.ebbez.dev {
+{$FORGEJO:git.example.com} {
   reverse_proxy http://forgejo_server:3000
 }
 
-rdcl.ebbez.dev {
+{$RADICALE:radicale.example.com} {
   reverse_proxy radicale:5232
 }
 
-cequent.net {
+{$CONTINUWUITY_MATRIX:example.com} {
   reverse_proxy /_matrix/* continuwuity_server:8008
   reverse_proxy /_conduwuit/* continuwuity_server:8008
 }
 
-cequent.net:8448 {
+{$CONTINUWUITY_MATRIX:example.com}:8448 {
   reverse_proxy continuwuity_server:8008
 }
