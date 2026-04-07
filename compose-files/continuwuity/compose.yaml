@@ -1,0 +1,24 @@
+services:
+  server:
+    image: ghcr.io/continuwuity/continuwuity:latest
+    container_name: continuwuity_server
+    restart: unless-stopped
+    expose:
+      - '8008'
+    networks:
+      - reverse_proxy
+    environment:
+      CONTINUWUITY_SERVER_NAME: cequent.net
+      CONTINUWUITY_ADDRESS: '0.0.0.0'
+      CONTINUWUITY_ALLOW_REGISTRATION: true
+      CONTINUWUITY_REGISTRATION_TOKEN: ${CONTINUWUITY_REGISTRATION_TOKEN}
+      CONTINUWUITY_DATABASE_PATH: /var/lib/continuwuity
+    volumes:
+      - ./data:/var/lib/continuwuity/
+
+volumes:
+  db:
+    
+networks:
+  reverse_proxy:
+    external: true
