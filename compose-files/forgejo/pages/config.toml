@@ -6,5 +6,4 @@ metrics = "tcp/:3002"
 [[wildcard]]
 domain = "ebbez.dev"
 clone-url = "https://git.ebbez.dev/<user>/<project>.git"
-index-repos = ["<user>.ebbez.dev"]
 authorization = "forgejo"
