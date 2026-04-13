@@ -9,11 +9,12 @@ services:
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
 
-        pages_external_url 'https://pages.cequent.nl'
+        pages_external_url 'https://pages.ebbez.dev'
         pages_nginx['enable'] = true
         pages_nginx['listen_port'] = 80
         pages_nginx['listen_https'] = false
         gitlab_pages['namespace_in_path'] = true
+        gitlab_pages['access_control'] = true
 
         puma['worker_processes'] = 0
         sidekiq['concurrency'] = 5

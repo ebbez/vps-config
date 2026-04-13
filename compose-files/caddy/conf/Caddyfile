@@ -25,6 +25,10 @@ https://, http:// {
   reverse_proxy http://forgejo_server:3000
 }
 
+{$GITLAB:gitlab.example.com}, {$GITLAB_PAGES:pages.example.com} {
+  reverse_proxy gitlab:80
+}
+
 {$RADICALE:radicale.example.com} {
   reverse_proxy radicale:5232
 }
