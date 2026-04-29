@@ -36,8 +36,18 @@ https://, http:// {
 {$CONTINUWUITY_MATRIX:example.com} {
   reverse_proxy /_matrix/* continuwuity_server:8008
   reverse_proxy /_conduwuit/* continuwuity_server:8008
+  reverse_proxy /.well-known/acme-challenge/* http://prosody
+  reverse_proxy prosody:5280
 }
 
 {$CONTINUWUITY_MATRIX:example.com}:8448 {
   reverse_proxy continuwuity_server:8008
+}
+
+{$VIKUNJA:vikunja.example.com} {
+  reverse_proxy vikunja:3456
+}
+
+{$OUTLINE:outline.example.com} {
+  reverse_proxy outline:3000
 }

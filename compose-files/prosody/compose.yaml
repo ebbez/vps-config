@@ -1,0 +1,22 @@
+services:
+  server:
+    build: .
+    container_name: prosody
+    restart: unless-stopped
+    ports:
+      - 5222:5222
+      - 5269:5269
+    volumes:
+      - ./data:/var/lib/prosody
+      - config:/etc/prosody
+    environment:
+      PROSODY_VIRTUAL_HOSTS: ${PROSODY_DOMAIN}
+    networks:
+      - reverse_proxy
+
+volumes:
+  config:
+
+networks:
+  reverse_proxy:
+    external: true

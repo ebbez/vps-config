@@ -1,6 +1,6 @@
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:14
+    image: codeberg.org/forgejo/forgejo:15
     container_name: 'forgejo_server'
     environment:
       - USER_UID=1000

@@ -1,0 +1,17 @@
+services:
+  vikunja:
+    image: vikunja/vikunja:2.3.0
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: ${VIKUNJA_URL}
+      VIKUNJA_SERVICE_JWTSECRET: ${VIKUNJA_SERVICE_JWTSECRET}
+      VIKUNJA_DATABASE_PATH: /db/vikunja.db
+    volumes:
+      - ./filesdata:/app/vikunja/files
+      - ./dbdata:/db
+    networks:
+      - reverse_proxy
+    restart: unless-stopped
+
+networks:
+  reverse_proxy:
+    external: true
