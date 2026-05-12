@@ -15,9 +15,6 @@ services:
       CONTINUWUITY_DATABASE_PATH: /var/lib/continuwuity
     volumes:
       - ./data:/var/lib/continuwuity/
-
-volumes:
-  db:
     
 networks:
   reverse_proxy:

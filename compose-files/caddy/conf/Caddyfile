@@ -51,3 +51,12 @@ https://, http:// {
 {$OUTLINE:outline.example.com} {
   reverse_proxy outline:3000
 }
+
+{$DONETICK:donetick.example.com} {
+  reverse_proxy donetick:2021
+}
+
+{$ZITADEL:zitadel.example.com} {
+  reverse_proxy /ui/v2/login/* http://zitadel-login:3000
+  reverse_proxy h2c://zitadel-api:8080
+}
