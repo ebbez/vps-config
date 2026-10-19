@@ -15,7 +15,7 @@ https://, http:// {
 
 {$FORGEJO_PAGES:*.example.com} {
   tls {
-    dns hetzner {$HETZNER_DNS_API_TOKEN}
+    dns mijnhost {$MIJNHOST_DNS_API_TOKEN}
     propagation_delay 30s
   }
   reverse_proxy http://forgejo_pages:3000
@@ -34,14 +34,15 @@ https://, http:// {
 }
 
 {$CONTINUWUITY_MATRIX:example.com} {
-  reverse_proxy /_matrix/* continuwuity_server:8008
-  reverse_proxy /_conduwuit/* continuwuity_server:8008
-  reverse_proxy /.well-known/acme-challenge/* http://prosody
-  reverse_proxy prosody:5280
+  reverse_proxy /_matrix/* http://continuwuity_server:8008
+  reverse_proxy /_continuwuity/* http://continuwuity_server:8008
+  reverse_proxy /.well-known/* http://continuwuity_server:8008
+#  reverse_proxy /.well-known/acme-challenge/* http://prosody
+#  reverse_proxy prosody:5280
 }
 
 {$CONTINUWUITY_MATRIX:example.com}:8448 {
-  reverse_proxy continuwuity_server:8008
+  reverse_proxy http://continuwuity_server:8008
 }
 
 {$VIKUNJA:vikunja.example.com} {
@@ -59,4 +60,8 @@ https://, http:// {
 {$ZITADEL:zitadel.example.com} {
   reverse_proxy /ui/v2/login/* http://zitadel-login:3000
   reverse_proxy h2c://zitadel-api:8080
+}
+
+{$PERSONAL_REDIRECT_DOMAIN:example.me} {
+  redir /{$PERSONAL_REDIRECT_ROUTE:} {$PERSONAL_REDIRECT:example.com}
 }

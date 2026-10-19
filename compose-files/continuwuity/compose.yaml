@@ -1,6 +1,6 @@
 services:
   server:
-    image: ghcr.io/continuwuity/continuwuity:latest
+    image: forgejo.ellis.link/continuwuation/continuwuity:main
     container_name: continuwuity_server
     restart: unless-stopped
     expose:
@@ -13,6 +13,12 @@ services:
       CONTINUWUITY_ALLOW_REGISTRATION: true
       CONTINUWUITY_REGISTRATION_TOKEN: ${CONTINUWUITY_REGISTRATION_TOKEN}
       CONTINUWUITY_DATABASE_PATH: /var/lib/continuwuity
+      CONTINUWUITY_ROCKSDB_REPAIR: true
+      CONTINUWUITY_OAUTH__OIDC__PROVIDER_NAME: Zitadel SSO
+      CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL: ${CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL}
+      CONTINUWUITY_OAUTH__OIDC__CLIENT_ID: ${CONTINUWUITY_OAUTH__OIDC__CLIENT_ID}
+      CONTINUWUITY_OAUTH__OIDC__CLIENT_SECRET: ${CONTINUWUITY_OAUTH__OIDC__CLIENT_SECRET}
+      CONTINUWUITY_OAUTH__OIDC__ADDITIONAL_TRUSTED_AUDIENCES: ${CONTINUWUITY_OAUTH__OIDC__ADDITIONAL_TRUSTED_AUDIENCES}
     volumes:
       - ./data:/var/lib/continuwuity/
     
